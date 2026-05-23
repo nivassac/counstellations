@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leads Admin | Fly2Success Abroad</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+  .admin {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1rem 4rem;
+  }
+  .admin__header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .admin__login,
+  .admin__table-wrap {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-md);
+  }
+  .admin__login {
+    max-width: 420px;
+    margin: 4rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .admin__login input,
+  .admin__login button {
+    padding: 0.875rem 1rem;
+    border-radius: var(--radius);
+    font-family: inherit;
+    font-size: 1rem;
+  }
+  .admin__login input {
+    border: 1px solid var(--color-border);
+  }
+  .admin__login button {
+    border: none;
+    background: var(--color-primary);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .admin table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  .admin th,
+  .admin td {
+    text-align: left;
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: top;
+  }
+  .admin th {
+    font-family: var(--font-display);
+    color: var(--color-primary);
+  }
+  .admin__error {
+    color: #b91c1c;
+    font-size: 0.9rem;
+  }
+  .admin__empty {
+    text-align: center;
+    color: var(--color-text-muted);
+    padding: 2rem;
+  }
+  @media (max-width: 768px) {
+    .admin__table-wrap {
+      overflow-x: auto;
+    }
+  }
+  </style>
+</head>
+<body>
+  <div class="admin">
+    <div id="loginView" class="admin__login">
+      <h1>Leads Admin</h1>
+      <p>Enter admin password to view counselling form submissions.</p>
+      <input type="password" id="passwordInput" placeholder="Admin password" />
+      <button type="button" id="loginBtn">View leads</button>
+      <p class="admin__error" id="loginError" hidden>Invalid password.</p>
+      <a href="/">← Back to website</a>
+    </div>
+
+    <div id="dashboardView" hidden>
+      <div class="admin__header">
+        <div>
+          <h1>Counselling leads</h1>
+          <p id="leadCount">Loading…</p>
+        </div>
+        <a href="/" class="btn btn--secondary btn--sm">Back to website</a>
+      </div>
+      <div class="admin__table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Destination</th>
+              <th>Submitted</th>
+            </tr>
+          </thead>
+          <tbody id="leadsBody"></tbody>
+        </table>
+        <p class="admin__empty" id="emptyState" hidden>No submissions yet.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    const loginView = document.getElementById("loginView");
+    const dashboardView = document.getElementById("dashboardView");
+    const passwordInput = document.getElementById("passwordInput");
+    const loginBtn = document.getElementById("loginBtn");
+    const loginError = document.getElementById("loginError");
+    const leadsBody = document.getElementById("leadsBody");
+    const leadCount = document.getElementById("leadCount");
+    const emptyState = document.getElementById("emptyState");
+
+    let password = sessionStorage.getItem("adminPassword") || "";
+
+    const formatDate = (iso) => {
+      try {
+        return new Date(iso).toLocaleString();
+      } catch {
+        return iso;
+      }
+    };
+
+    const loadLeads = async () => {
+      const res = await fetch("/api/leads", {
+        headers: { "X-Admin-Password": password },
+      });
+
+      if (res.status === 401) {
+        sessionStorage.removeItem("adminPassword");
+        password = "";
+        loginView.hidden = false;
+        dashboardView.hidden = true;
+        loginError.hidden = false;
+        return;
+      }
+
+      const leads = await res.json();
+      loginView.hidden = true;
+      dashboardView.hidden = false;
+      loginError.hidden = true;
+
+      leadsBody.innerHTML = leads
+        .map(
+          (lead) => `
+            <tr>
+              <td>${lead.id}</td>
+              <td>${lead.name}</td>
+              <td>${lead.email}</td>
+              <td>${lead.phone}</td>
+              <td>${lead.destination}</td>
+              <td>${formatDate(lead.created_at)}</td>
+            </tr>
+          `
+        )
+        .join("");
+
+      emptyState.hidden = leads.length > 0;
+      leadCount.textContent = `${leads.length} submission${leads.length === 1 ? "" : "s"}`;
+    };
+
+    loginBtn.addEventListener("click", () => {
+      password = passwordInput.value.trim();
+      if (!password) return;
+      sessionStorage.setItem("adminPassword", password);
+      loadLeads();
+    });
+
+    passwordInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") loginBtn.click();
+    });
+
+    if (password) loadLeads();
+  })();
+  </script>
+</body>
+</html>
