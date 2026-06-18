@@ -322,6 +322,99 @@ img {
   font-size: 0.95rem;
 }
 
+.hero__globe-orbit {
+  --orbit-size: min(560px, 90vw);
+  --orbit-radius: calc(var(--orbit-size) / 2 - 1rem);
+  position: relative;
+  width: var(--orbit-size);
+  aspect-ratio: 1 / 1;
+  margin-inline: auto;
+  display: grid;
+  place-items: center;
+}
+
+.hero__globe-core {
+  width: min(220px, 44vw);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #76c9ff 0%, #1b6fae 50%, #083a66 100%);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 12px 30px rgba(13, 79, 139, 0.5),
+    inset 0 0 30px rgba(255, 255, 255, 0.15);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 1.25rem;
+}
+
+.hero__globe-emoji {
+  font-size: clamp(2.25rem, 4vw, 2.8rem);
+  line-height: 1;
+}
+
+.hero__globe-core p {
+  margin-top: 0.75rem;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.hero__orbit-ring {
+  position: absolute;
+  inset: 0;
+  border: 1px dashed rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  animation: orbitSpin 36s linear infinite;
+}
+
+.hero__orbit-item {
+  --angle: calc(360deg / var(--items) * var(--i));
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: rotate(var(--angle));
+}
+
+.hero__orbit-country {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transform: translateY(calc(-1 * var(--orbit-radius))) rotate(calc(-1 * var(--angle)));
+  animation: orbitSpinReverse 36s linear infinite;
+  transform-origin: center;
+  white-space: nowrap;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: 0.64rem;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(8, 58, 102, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(4px);
+}
+
+@keyframes orbitSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbitSpinReverse {
+  from {
+    transform: translateY(calc(-1 * var(--orbit-radius))) rotate(calc(-1 * var(--angle))) rotate(0deg);
+  }
+  to {
+    transform: translateY(calc(-1 * var(--orbit-radius))) rotate(calc(-1 * var(--angle))) rotate(-360deg);
+  }
+}
+
 /* Sections */
 section {
   padding: 5rem 0;
@@ -841,6 +934,99 @@ section {
   opacity: 0.7;
 }
 
+.footer__contact-destinations {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  margin-top: 0.25rem;
+  padding: 1.75rem 0 2.5rem;
+}
+
+.footer__contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.footer__contact-links a {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  font-size: 0.82rem;
+  color: #fff;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.footer__contact-links a:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-1px);
+}
+
+.footer__countries h4 {
+  font-family: var(--font-display);
+  color: #fff;
+  font-size: 0.95rem;
+  margin-bottom: 0.8rem;
+}
+
+.footer__country-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.footer__country-list span {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  background: rgba(8, 58, 102, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.footer__celebration {
+  display: flex;
+  justify-content: center;
+  padding: 0 0 2rem;
+}
+
+.footer__celebration-image {
+  width: min(280px, 72vw);
+  filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.35));
+  animation: visaJump 1.8s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+@keyframes visaJump {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  35% {
+    transform: translateY(-26px) scale(1.03);
+  }
+  60% {
+    transform: translateY(-8px) scale(0.99);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer__celebration-image {
+    animation: none;
+  }
+
+  .hero__orbit-ring,
+  .hero__orbit-country {
+    animation: none;
+  }
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
   .services__grid,
@@ -894,7 +1080,21 @@ section {
     order: -1;
   }
 
+  .hero__globe-orbit {
+    --orbit-size: min(500px, 92vw);
+  }
+
+  .hero__orbit-country {
+    font-size: 0.56rem;
+    padding: 0.2rem 0.45rem;
+  }
+
   .section-title {
     margin-bottom: 1.75rem;
+  }
+
+  .footer__contact-links a {
+    width: 100%;
+    justify-content: center;
   }
 }
