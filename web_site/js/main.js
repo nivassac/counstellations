@@ -1,4 +1,24 @@
 (function () {
+  const welcomeSplash = document.getElementById("welcomeSplash");
+  const welcomeSkip = document.getElementById("welcomeSkip");
+  const welcomeCta = document.getElementById("welcomeCta");
+  const WELCOME_KEY = "fly2success_welcome_seen";
+
+  const dismissWelcome = () => {
+    if (!welcomeSplash || welcomeSplash.classList.contains("welcome-splash--hidden")) return;
+    welcomeSplash.classList.add("welcome-splash--hidden");
+    document.body.classList.remove("welcome-open");
+    sessionStorage.setItem(WELCOME_KEY, "1");
+  };
+
+  if (welcomeSplash && !sessionStorage.getItem(WELCOME_KEY)) {
+    document.body.classList.add("welcome-open");
+    welcomeSkip?.addEventListener("click", dismissWelcome);
+    welcomeCta?.addEventListener("click", dismissWelcome);
+  } else if (welcomeSplash) {
+    welcomeSplash.classList.add("welcome-splash--hidden");
+  }
+
   const header = document.getElementById("header");
   const navToggle = document.getElementById("navToggle");
   const nav = document.getElementById("nav");
