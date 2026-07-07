@@ -4,10 +4,31 @@
   const welcomeCta = document.getElementById("welcomeCta");
   const WELCOME_KEY = "fly2success_welcome_seen";
 
+  let lockedScrollY = 0;
+
+  const lockPageScroll = () => {
+    lockedScrollY = window.scrollY;
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${lockedScrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
+  };
+
+  const unlockPageScroll = () => {
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
+    document.body.style.width = "";
+    window.scrollTo(0, lockedScrollY);
+  };
+
   const dismissWelcome = () => {
     if (!welcomeSplash || welcomeSplash.classList.contains("welcome-splash--hidden")) return;
     welcomeSplash.classList.add("welcome-splash--hidden");
     document.body.classList.remove("welcome-open");
+    unlockPageScroll();
     sessionStorage.setItem(WELCOME_KEY, "1");
   };
 
@@ -22,6 +43,7 @@
 
   if (welcomeSplash && !sessionStorage.getItem(WELCOME_KEY)) {
     document.body.classList.add("welcome-open");
+    lockPageScroll();
     welcomeSkip?.addEventListener("click", dismissWelcome);
     welcomeCta?.addEventListener("click", dismissWelcome);
   } else if (welcomeSplash) {
