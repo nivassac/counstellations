@@ -11,6 +11,15 @@
     sessionStorage.setItem(WELCOME_KEY, "1");
   };
 
+  const scrollToSection = (hash) => {
+    if (!hash || hash === "#") return;
+    const target = document.querySelector(hash);
+    if (!target) return;
+    requestAnimationFrame(() => {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  };
+
   if (welcomeSplash && !sessionStorage.getItem(WELCOME_KEY)) {
     document.body.classList.add("welcome-open");
     welcomeSkip?.addEventListener("click", dismissWelcome);
@@ -23,16 +32,29 @@
   const navToggle = document.getElementById("navToggle");
   const nav = document.getElementById("nav");
 
+  document.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const hash = link.getAttribute("href");
+      if (!hash || hash === "#") return;
+
+      dismissWelcome();
+
+      const target = document.querySelector(hash);
+      if (!target) return;
+
+      event.preventDefault();
+      nav?.classList.remove("open");
+      history.pushState(null, "", hash);
+      scrollToSection(hash);
+    });
+  });
+
   window.addEventListener("scroll", () => {
     header.classList.toggle("scrolled", window.scrollY > 20);
   });
 
   navToggle?.addEventListener("click", () => {
     nav.classList.toggle("open");
-  });
-
-  nav?.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => nav.classList.remove("open"));
   });
 
   const counters = document.querySelectorAll(".stat-item__number[data-target]");
