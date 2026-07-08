@@ -11,39 +11,6 @@
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <div class="welcome-splash" id="welcomeSplash" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
-    <div class="welcome-splash__panel">
-      <button type="button" class="welcome-splash__skip" id="welcomeSkip" aria-label="Skip welcome animation">&times;</button>
-      <div class="welcome-splash__confetti" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span><span></span>
-      </div>
-      <div class="welcome-splash__banner-wrap">
-        <img
-          src="images/welcome-banner.png"
-          alt="Welcome to Fly2Success Abroad — your success journey starts here"
-          class="welcome-splash__banner"
-          id="welcomeTitle"
-          width="960"
-          height="540"
-        />
-      </div>
-      <div class="welcome-splash__badges-row">
-        <div class="welcome-splash__badge welcome-splash__badge--google">
-          <span class="welcome-splash__stars" aria-hidden="true">★★★★★</span>
-          <strong>5</strong>
-          <span>Google Rating</span>
-        </div>
-        <div class="welcome-splash__badge welcome-splash__badge--trust">
-          <strong>3000+</strong>
-          <span>Students Placed</span>
-        </div>
-      </div>
-      <a href="#contact" class="btn btn--primary btn--lg welcome-splash__cta" id="welcomeCta">Get Expert Guidance</a>
-      <p class="welcome-splash__footer">Connecting Aspirations to Global Success</p>
-    </div>
-  </div>
-
   <header class="header" id="header">
     <div class="container header__inner">
       <a href="#" class="logo">
@@ -66,45 +33,60 @@
   </header>
 
   <main>
-    <section class="hero" id="counselling">
-      <div class="hero__bg"></div>
-      <div class="container hero__grid">
-        <div class="hero__content">
-          <span class="badge">Global opportunities await</span>
-          <h1 class="hero__title">
-            Fly to Success <em>Study Abroad</em>
-          </h1>
-          <p class="hero__subtitle">
-            Europe-focused expertise with global admissions support across the UK, USA, Canada, Australia, and more.
-          </p>
-          <div class="hero__actions">
-            <a href="#contact" class="btn btn--primary btn--lg">Book Free Counselling</a>
-            <a href="#destinations" class="btn btn--outline btn--lg">Explore Countries</a>
-          </div>
-          <p class="hero__tagline">Trusted by 3000+ students for admissions, visas, scholarships, and pre-departure support.</p>
+    <section class="hero-welcome" id="counselling">
+      <div class="container hero-welcome__inner">
+        <div class="hero-welcome__confetti" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span>
         </div>
-        <div class="hero__visual">
-          <div class="hero__globe-showcase">
-            <div class="hero__globe" aria-hidden="true">
-              <img src="images/hero-globe-reference.png" alt="" class="hero__globe-image" />
-            </div>
-            <article class="hero__country-card hero__country-card--uk">
-              <strong>UK 🇬🇧</strong>
-              <span>120+ Universities</span>
-            </article>
-            <article class="hero__country-card hero__country-card--canada">
-              <strong>Canada 🇨🇦</strong>
-              <span>100+ Universities</span>
-            </article>
-            <article class="hero__country-card hero__country-card--australia">
-              <strong>Australia 🇦🇺</strong>
-              <span>70+ Universities</span>
-            </article>
-            <article class="hero__country-card hero__country-card--usa">
-              <strong>USA 🇺🇸</strong>
-              <span>150+ Universities</span>
-            </article>
+        <p class="hero-welcome__eyebrow">Trusted by 3000+ students worldwide for success.</p>
+        <div class="hero-welcome__banner-wrap">
+          <img
+            src="images/welcome-banner.png"
+            alt="Welcome to Fly2Success Abroad — your success journey starts here"
+            class="hero-welcome__banner"
+            width="960"
+            height="540"
+          />
+        </div>
+        <div class="hero-welcome__badges-row">
+          <div class="hero-welcome__badge hero-welcome__badge--google">
+            <span class="hero-welcome__stars" aria-hidden="true">★★★★★</span>
+            <strong>5</strong>
+            <span>Google Rating</span>
           </div>
+          <div class="hero-welcome__badge hero-welcome__badge--trust">
+            <strong>3000+</strong>
+            <span>Students Placed</span>
+          </div>
+        </div>
+        <a href="#contact" class="btn btn--primary btn--lg hero-welcome__cta">Get Expert Guidance</a>
+        <p class="hero-welcome__footer">Connecting Aspirations to Global Success</p>
+      </div>
+    </section>
+
+    <section class="hero-showcase">
+      <div class="container">
+        <div class="hero__globe-showcase">
+          <div class="hero__globe" aria-hidden="true">
+            <img src="images/hero-globe-reference.png" alt="" class="hero__globe-image" />
+          </div>
+          <article class="hero__country-card hero__country-card--uk">
+            <strong>UK 🇬🇧</strong>
+            <span>120+ Universities</span>
+          </article>
+          <article class="hero__country-card hero__country-card--canada">
+            <strong>Canada 🇨🇦</strong>
+            <span>100+ Universities</span>
+          </article>
+          <article class="hero__country-card hero__country-card--australia">
+            <strong>Australia 🇦🇺</strong>
+            <span>70+ Universities</span>
+          </article>
+          <article class="hero__country-card hero__country-card--usa">
+            <strong>USA 🇺🇸</strong>
+            <span>150+ Universities</span>
+          </article>
         </div>
       </div>
     </section>

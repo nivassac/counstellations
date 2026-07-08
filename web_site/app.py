@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from flask import Flask, jsonify, request, send_from_directory
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.join(BASE_DIR, "data", "leads.db")
+DB_PATH = os.environ.get("DB_PATH", os.path.join(BASE_DIR, "data", "leads.db"))
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "fly2success2026")
 
 app = Flask(__name__, static_folder=BASE_DIR, static_url_path="")
@@ -57,14 +57,17 @@ def contact():
 
     created_at = datetime.now(timezone.utc).isoformat()
 
-    with get_db() as conn:
-        conn.execute(
-            """
-            INSERT INTO leads (name, email, phone, destination, created_at)
-            VALUES (?, ?, ?, ?, ?)
-            """,
-            (name, email, phone, destination, created_at),
-        )
+    try:
+        with get_db() as conn:
+            conn.execute(
+                """
+                INSERT INTO leads (name, email, phone, destination, created_at)
+                VALUES (?, ?, ?, ?, ?)
+                """,
+                (name, email, phone, destination, created_at),
+            )
+    except sqlite3.Error:
+        return jsonify({"error": "Unable to save your enquiry right now. Please call or WhatsApp us directly."}), 500
 
     return jsonify({"message": "Thank you! We'll contact you within 24 hours."}), 201
 
@@ -87,7 +90,10 @@ def leads():
     return jsonify([dict(row) for row in rows])
 
 
-if __name__ == "__main__":
+with app.app_context():
     init_db()
+
+
+if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
     app.run(host="0.0.0.0", port=port, debug=False)

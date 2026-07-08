@@ -1,37 +1,4 @@
 (function () {
-  const welcomeSplash = document.getElementById("welcomeSplash");
-  const welcomeSkip = document.getElementById("welcomeSkip");
-  const welcomeCta = document.getElementById("welcomeCta");
-  const WELCOME_KEY = "fly2success_welcome_seen";
-
-  let lockedScrollY = 0;
-
-  const lockPageScroll = () => {
-    lockedScrollY = window.scrollY;
-    document.body.style.position = "fixed";
-    document.body.style.top = `-${lockedScrollY}px`;
-    document.body.style.left = "0";
-    document.body.style.right = "0";
-    document.body.style.width = "100%";
-  };
-
-  const unlockPageScroll = () => {
-    document.body.style.position = "";
-    document.body.style.top = "";
-    document.body.style.left = "";
-    document.body.style.right = "";
-    document.body.style.width = "";
-    window.scrollTo(0, lockedScrollY);
-  };
-
-  const dismissWelcome = () => {
-    if (!welcomeSplash || welcomeSplash.classList.contains("welcome-splash--hidden")) return;
-    welcomeSplash.classList.add("welcome-splash--hidden");
-    document.body.classList.remove("welcome-open");
-    unlockPageScroll();
-    sessionStorage.setItem(WELCOME_KEY, "1");
-  };
-
   const scrollToSection = (hash) => {
     if (!hash || hash === "#") return;
     const target = document.querySelector(hash);
@@ -41,15 +8,6 @@
     });
   };
 
-  if (welcomeSplash && !sessionStorage.getItem(WELCOME_KEY)) {
-    document.body.classList.add("welcome-open");
-    lockPageScroll();
-    welcomeSkip?.addEventListener("click", dismissWelcome);
-    welcomeCta?.addEventListener("click", dismissWelcome);
-  } else if (welcomeSplash) {
-    welcomeSplash.classList.add("welcome-splash--hidden");
-  }
-
   const header = document.getElementById("header");
   const navToggle = document.getElementById("navToggle");
   const nav = document.getElementById("nav");
@@ -58,8 +16,6 @@
     link.addEventListener("click", (event) => {
       const hash = link.getAttribute("href");
       if (!hash || hash === "#") return;
-
-      dismissWelcome();
 
       const target = document.querySelector(hash);
       if (!target) return;
@@ -155,10 +111,18 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const data = await res.json();
+
+      const contentType = res.headers.get("content-type") || "";
+      let data = null;
+
+      if (contentType.includes("application/json")) {
+        data = await res.json();
+      } else if (!res.ok) {
+        throw new Error("Unable to submit the form right now. Please call or WhatsApp us directly.");
+      }
 
       if (!res.ok) {
-        throw new Error(data.error || "Something went wrong. Please try again.");
+        throw new Error(data?.error || "Something went wrong. Please try again.");
       }
 
       formMessage.textContent = data.message;
