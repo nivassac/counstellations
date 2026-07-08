@@ -338,13 +338,47 @@ img {
   font-size: 0.95rem;
 }
 
-.hero__globe-showcase {
+.globe-hub {
   position: relative;
-  width: min(560px, 100%);
-  max-width: 92vw;
+  width: min(520px, 100%);
+  max-width: 94vw;
   aspect-ratio: 1 / 1;
   margin-inline: auto;
-  overflow: hidden;
+}
+
+.globe-hub__lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.globe-hub__ring {
+  fill: none;
+  stroke: rgba(17, 79, 152, 0.14);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 10;
+  transform-origin: center;
+  animation: globeRingPulse 6s ease-in-out infinite;
+}
+
+.globe-hub__spoke {
+  stroke: rgba(17, 79, 152, 0.16);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 4 8;
+  transition: stroke 0.35s ease, stroke-width 0.35s ease, opacity 0.35s ease;
+  opacity: 0.55;
+}
+
+.globe-hub__spoke.is-active {
+  stroke: rgba(245, 158, 11, 0.95);
+  stroke-width: 3;
+  opacity: 1;
+  stroke-dasharray: none;
+  filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.45));
 }
 
 .hero-showcase__tagline {
@@ -364,8 +398,9 @@ img {
 
 .globe-real--lg {
   position: absolute;
-  inset: 16% 17%;
+  inset: 18%;
   aspect-ratio: 1 / 1;
+  z-index: 1;
 }
 
 .globe-real--sm {
@@ -376,6 +411,10 @@ img {
   height: clamp(56px, 16vw, 78px);
   z-index: 2;
   animation: mascotGlobeBob 4s ease-in-out infinite;
+}
+
+.globe-real--sm .globe-real__map {
+  animation: earthScroll 22s linear infinite;
 }
 
 .globe-real__sphere {
@@ -399,7 +438,158 @@ img {
   top: 0;
   background: url("../images/earth-map.jpg") repeat-x left center;
   background-size: 50% 100%;
-  animation: earthScroll 22s linear infinite;
+  will-change: transform;
+}
+
+.globe-pin {
+  position: absolute;
+  left: var(--pin-x);
+  top: var(--pin-y);
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.globe-pin::before {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border-radius: 50%;
+  border: 2px solid rgba(245, 158, 11, 0.45);
+  animation: pinPulse 2.4s ease-out infinite;
+}
+
+.globe-pin::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fcd34d, #f59e0b);
+  border: 2px solid #fff;
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.85);
+}
+
+.globe-hub__labels {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.globe-hub__label {
+  --label-x: 50%;
+  --label-y: 50%;
+  position: absolute;
+  left: var(--label-x);
+  top: var(--label-y);
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 2px solid rgba(17, 79, 152, 0.12);
+  box-shadow: 0 8px 20px rgba(8, 58, 102, 0.12);
+  font-size: 0.78rem;
+  color: var(--color-primary-dark);
+  pointer-events: auto;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease,
+    background 0.35s ease;
+}
+
+.globe-hub__label span {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.globe-hub__label strong {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.globe-hub__label.is-active {
+  transform: translate(-50%, -50%) scale(1.08);
+  background: linear-gradient(135deg, #114f98, #1d6fd4);
+  border-color: rgba(252, 211, 77, 0.65);
+  color: #fff;
+  box-shadow:
+    0 0 0 4px rgba(99, 197, 251, 0.25),
+    0 14px 28px rgba(17, 79, 152, 0.28);
+}
+
+.globe-hub__label.is-active strong {
+  color: #fff;
+}
+
+.globe-hub__label[data-id="uk"] { --label-x: 14%; --label-y: 18%; }
+.globe-hub__label[data-id="europe"] { --label-x: 50%; --label-y: 6%; }
+.globe-hub__label[data-id="dubai"] { --label-x: 86%; --label-y: 18%; }
+.globe-hub__label[data-id="singapore"] { --label-x: 94%; --label-y: 50%; }
+.globe-hub__label[data-id="australia"] { --label-x: 82%; --label-y: 84%; }
+.globe-hub__label[data-id="nz"] { --label-x: 50%; --label-y: 94%; }
+.globe-hub__label[data-id="mauritius"] { --label-x: 18%; --label-y: 84%; }
+.globe-hub__label[data-id="usa"] { --label-x: 6%; --label-y: 50%; }
+
+.globe-hub__label.is-active::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 999px;
+  border: 2px solid rgba(252, 211, 77, 0.55);
+  animation: pinPulse 2s ease-out infinite;
+}
+
+@keyframes pinPulse {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.85;
+  }
+  70% {
+    transform: scale(1.45);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.45);
+    opacity: 0;
+  }
+}
+
+@keyframes globeRingPulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes mascotGlobeBob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes earthScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .globe-real__atmosphere {
@@ -420,133 +610,6 @@ img {
     radial-gradient(circle at 72% 78%, rgba(5, 28, 56, 0.22), transparent 38%);
   pointer-events: none;
   z-index: 3;
-}
-
-.globe-real__orbit {
-  position: absolute;
-  inset: -12%;
-  border: 2px dashed rgba(255, 255, 255, 0.42);
-  border-radius: 50%;
-  transform: rotate(-8deg);
-  opacity: 0.75;
-  animation: orbitSpin 20s linear infinite;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.globe-real__plane {
-  position: absolute;
-  left: 10%;
-  top: 58%;
-  font-size: clamp(1.1rem, 3vw, 1.6rem);
-  color: rgba(255, 255, 255, 0.92);
-  z-index: 4;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25));
-  animation: globePlaneOrbit 11s ease-in-out infinite;
-}
-
-@keyframes earthScroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@keyframes orbitSpin {
-  from {
-    transform: rotate(-8deg);
-  }
-  to {
-    transform: rotate(352deg);
-  }
-}
-
-@keyframes globePlaneOrbit {
-  0% {
-    transform: translate(0, 0) rotate(-14deg) scale(0.9);
-    opacity: 0.35;
-  }
-  50% {
-    transform: translate(58%, -42%) rotate(8deg) scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(95%, -18%) rotate(18deg) scale(0.92);
-    opacity: 0.25;
-  }
-}
-
-@keyframes mascotGlobeBob {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
-.hero__country-card {
-  position: absolute;
-  min-width: 120px;
-  max-width: 42%;
-  padding: 0.7rem 0.85rem;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.96);
-  border: 1px solid rgba(148, 163, 184, 0.28);
-  box-shadow: 0 12px 24px rgba(8, 58, 102, 0.16);
-  backdrop-filter: blur(6px);
-  animation: countryCardFloat 5s ease-in-out infinite;
-}
-
-.hero__country-card strong {
-  letter-spacing: 0.01em;
-}
-
-.hero__country-card strong {
-  display: block;
-  color: var(--color-primary-dark);
-  font-family: var(--font-display);
-  font-size: 0.9rem;
-  line-height: 1.2;
-}
-
-.hero__country-card span {
-  color: #475569;
-  font-size: 0.75rem;
-}
-
-.hero__country-card--uk {
-  top: 12%;
-  left: 4%;
-}
-
-.hero__country-card--canada {
-  top: 14%;
-  right: 2%;
-}
-
-.hero__country-card--australia {
-  left: 2%;
-  bottom: 28%;
-}
-
-.hero__country-card--usa {
-  right: 1%;
-  bottom: 26%;
-  animation-delay: 1.5s;
-}
-
-@keyframes countryCardFloat {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
 }
 
 /* Sections */
@@ -1260,12 +1323,12 @@ section {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .globe-real__map,
-  .globe-real__orbit,
-  .globe-real__plane,
-  .hero__country-card,
-  .hero-welcome__mascot,
-  .hero-welcome__logo-badge,
+  .globe-real--sm .globe-real__map,
+  .globe-hub__ring,
+  .globe-pin::before,
+  .globe-hub__label.is-active::after,
+  .hero-welcome__hero-image,
+  .hero-welcome__image-shine,
   .hero-welcome__mini-globe {
     animation: none;
   }
@@ -1274,14 +1337,21 @@ section {
     transform: none;
   }
 
-  .hero-welcome__stage,
   .hero-welcome__badge,
   .hero-welcome__cta,
   .hero-welcome__footer,
   .hero-welcome__eyebrow,
-  .hero-welcome__confetti span,
-  .hero-welcome__title-line.is-active {
+  .hero-welcome__confetti span {
     animation: none;
+  }
+
+  .hero-welcome__slide {
+    transition: none;
+  }
+
+  .hero-welcome__slide.is-active {
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -1333,22 +1403,25 @@ section {
     grid-template-columns: 1fr;
   }
 
-  .hero-showcase .hero__globe-showcase {
-    width: min(360px, 88vw);
+  .globe-hub {
+    width: min(360px, 92vw);
   }
 
-  .hero-showcase .hero__country-card {
-    min-width: 108px;
-    max-width: 44%;
-    padding: 0.5rem 0.6rem;
-  }
-
-  .hero-showcase .hero__country-card strong {
-    font-size: 0.78rem;
-  }
-
-  .hero-showcase .hero__country-card span {
+  .globe-hub__label {
+    padding: 0.35rem 0.55rem;
     font-size: 0.68rem;
+  }
+
+  .globe-hub__label span {
+    font-size: 0.85rem;
+  }
+
+  .globe-hub__label strong {
+    font-size: 0.68rem;
+  }
+
+  .globe-real--lg {
+    inset: 22%;
   }
 
   .section-title {
@@ -1378,120 +1451,134 @@ section {
 
 .hero-welcome__inner {
   position: relative;
-  width: min(760px, 100%);
+  width: min(920px, 100%);
   margin-inline: auto;
   text-align: center;
-  padding-inline: 0.25rem;
+  padding-inline: clamp(0.5rem, 2vw, 1rem);
 }
 
 .hero-welcome__eyebrow {
   position: relative;
   z-index: 1;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   font-size: clamp(0.9rem, 2.5vw, 1.05rem);
   font-weight: 600;
   color: var(--color-text);
   animation: welcomeSlideUp 0.65s 0.05s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.hero-welcome__stage {
+.hero-welcome__hero-text {
   position: relative;
   z-index: 1;
-  width: 100%;
-  animation: welcomeBannerIn 0.9s 0.15s cubic-bezier(0.22, 1, 0.36, 1) both;
+  margin-bottom: 1.25rem;
 }
 
-.hero-welcome__panel {
+.hero-welcome__text-track {
   position: relative;
-  overflow: hidden;
-  border-radius: var(--radius-lg);
-  background:
-    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.12), transparent 45%),
-    linear-gradient(145deg, #0b3564 0%, #114f98 42%, #1d6fd4 100%);
-  box-shadow: 0 22px 48px rgba(11, 53, 100, 0.22);
-  padding: clamp(1rem, 4vw, 1.75rem) clamp(0.75rem, 3vw, 1.5rem) 0;
+  min-height: clamp(4.5rem, 16vw, 6.5rem);
 }
 
-.hero-welcome__headlines {
-  min-height: clamp(4.5rem, 18vw, 6rem);
+.hero-welcome__slide {
+  position: absolute;
+  inset: 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 0.5rem;
-}
-
-.hero-welcome__title {
-  margin: 0;
-  width: 100%;
-}
-
-.hero-welcome__title-line {
-  display: none;
   flex-direction: column;
   align-items: center;
-  gap: 0.2rem;
-  padding-inline: 0.5rem;
+  justify-content: center;
+  gap: 0.15rem;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
 }
 
-.hero-welcome__title-line.is-active {
-  display: flex;
-  animation: headlineSwap 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+.hero-welcome__slide.is-active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
-.hero-welcome__title-line em {
-  font-style: normal;
-  font-size: clamp(0.95rem, 3.8vw, 1.35rem);
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.92);
-  line-height: 1.35;
+.hero-welcome__line {
+  display: block;
+  line-height: 1.2;
 }
 
-.hero-welcome__title-line strong {
+.hero-welcome__line--soft {
+  font-size: clamp(1.05rem, 4.2vw, 1.65rem);
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+.hero-welcome__line--bold {
   font-family: var(--font-display);
-  font-size: clamp(1.35rem, 6vw, 2.15rem);
+  font-size: clamp(1.45rem, 5.8vw, 2.65rem);
   font-weight: 800;
-  color: #fcd34d;
-  line-height: 1.15;
-  text-transform: capitalize;
+  color: var(--color-primary);
+  letter-spacing: -0.02em;
 }
 
-.hero-welcome__visual {
-  position: relative;
-  width: min(320px, 78vw);
-  margin: 0.25rem auto 0;
-  aspect-ratio: 4 / 5;
-  max-height: min(52vh, 380px);
+.hero-welcome__line--bold em {
+  font-style: italic;
+  color: #0ea5e9;
 }
 
-.hero-welcome__glow {
-  position: absolute;
-  inset: 18% 8% 8%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(99, 197, 251, 0.35), transparent 68%);
-  animation: welcomeGlowPulse 4.5s ease-in-out infinite;
-}
-
-.hero-welcome__mascot {
+.hero-welcome__hero-image {
   position: relative;
   z-index: 1;
   width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center bottom;
-  animation: mascotFloat 3.6s ease-in-out infinite;
-  filter: drop-shadow(0 16px 24px rgba(0, 0, 0, 0.22));
+  border-radius: clamp(16px, 3vw, 28px);
+  overflow: hidden;
+  box-shadow:
+    0 28px 60px rgba(11, 53, 100, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+  animation:
+    welcomeBannerIn 1s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both,
+    heroImageFloat 6s 1.2s ease-in-out infinite;
 }
 
-.hero-welcome__logo-badge {
-  position: absolute;
-  top: 4%;
-  left: 6%;
-  z-index: 3;
-  width: clamp(44px, 12vw, 56px);
+.hero-welcome__banner {
+  display: block;
+  width: 100%;
   height: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 8px 16px rgba(17, 79, 152, 0.35));
-  animation: logoOrbit 5s ease-in-out infinite;
+  vertical-align: middle;
+}
+
+.hero-welcome__image-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.18) 48%,
+    transparent 58%
+  );
+  transform: translateX(-120%);
+  animation: heroShineSweep 7s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes heroImageFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes heroShineSweep {
+  0%,
+  72% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
 }
 
 .hero-welcome__confetti {
@@ -1595,7 +1682,7 @@ section {
   background: linear-gradient(180deg, #eef5fb 0%, var(--color-bg) 100%);
 }
 
-.hero-showcase .hero__globe-showcase {
+.hero-showcase .globe-hub {
   margin-inline: auto;
 }
 
@@ -1618,39 +1705,6 @@ section {
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes headlineSwap {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes mascotFloat {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes welcomeGlowPulse {
-  0%,
-  100% {
-    opacity: 0.75;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.04);
   }
 }
 
@@ -1732,17 +1786,12 @@ section {
     padding: calc(var(--header-h) + 0.75rem) 0 1.5rem;
   }
 
-  .hero-welcome__panel {
-    padding-bottom: 0;
+  .hero-welcome__text-track {
+    min-height: 4rem;
   }
 
-  .hero-welcome__visual {
-    width: min(280px, 72vw);
-    max-height: min(46vh, 320px);
-  }
-
-  .hero-welcome__headlines {
-    min-height: 4.25rem;
+  .hero-welcome__hero-image {
+    animation: welcomeBannerIn 1s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .hero-welcome__badges-row {
@@ -1774,15 +1823,23 @@ section {
     padding: 1.5rem 0 2rem;
   }
 
-  .hero-showcase .hero__globe-showcase {
-    width: min(340px, 86vw);
+  .globe-hub {
+    width: min(320px, 90vw);
   }
+
+  .globe-hub__label[data-id="uk"] { --label-x: 12%; --label-y: 16%; }
+  .globe-hub__label[data-id="europe"] { --label-x: 50%; --label-y: 4%; }
+  .globe-hub__label[data-id="dubai"] { --label-x: 88%; --label-y: 16%; }
+  .globe-hub__label[data-id="singapore"] { --label-x: 92%; --label-y: 50%; }
+  .globe-hub__label[data-id="australia"] { --label-x: 84%; --label-y: 88%; }
+  .globe-hub__label[data-id="nz"] { --label-x: 50%; --label-y: 96%; }
+  .globe-hub__label[data-id="mauritius"] { --label-x: 16%; --label-y: 88%; }
+  .globe-hub__label[data-id="usa"] { --label-x: 8%; --label-y: 50%; }
 }
 
 @media (max-width: 480px) {
-  .hero-welcome__visual {
-    width: min(240px, 78vw);
-    max-height: min(40vh, 280px);
+  .hero-welcome__text-track {
+    min-height: 3.6rem;
   }
 
   .hero-welcome__badge {

@@ -102,14 +102,85 @@
     revealElements.forEach((el) => revealObserver.observe(el));
   }
 
-  const headlineLines = document.querySelectorAll(".hero-welcome__title-line");
-  if (headlineLines.length > 1) {
-    let headlineIndex = 0;
+  const headlineSlides = document.querySelectorAll(".hero-welcome__slide");
+  if (headlineSlides.length > 1) {
+    let slideIndex = 0;
     setInterval(() => {
-      headlineLines[headlineIndex].classList.remove("is-active");
-      headlineIndex = (headlineIndex + 1) % headlineLines.length;
-      headlineLines[headlineIndex].classList.add("is-active");
-    }, 4200);
+      headlineSlides[slideIndex].classList.remove("is-active");
+      slideIndex = (slideIndex + 1) % headlineSlides.length;
+      headlineSlides[slideIndex].classList.add("is-active");
+    }, 4500);
+  }
+
+  const globeMap = document.getElementById("globeMap");
+  const globeHub = document.getElementById("globeHub");
+  if (globeMap && globeHub) {
+    const globePins = globeMap.querySelectorAll(".globe-pin");
+    const globeLabels = globeHub.querySelectorAll(".globe-hub__label");
+    const globeSpokes = globeHub.querySelectorAll(".globe-hub__spoke");
+    const destinations = Array.from(globeLabels).map((label) => ({
+      id: label.dataset.id,
+      lon: parseFloat(label.dataset.lon),
+      el: label,
+    }));
+    const rotationMs = 24000;
+    let rotationStart = performance.now();
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const normalizeLon = (lon) => {
+      let value = lon;
+      while (value > 180) value -= 360;
+      while (value < -180) value += 360;
+      return value;
+    };
+
+    const lonDistance = (a, b) => {
+      let diff = Math.abs(normalizeLon(a) - normalizeLon(b));
+      if (diff > 180) diff = 360 - diff;
+      return diff;
+    };
+
+    const animateGlobe = (now) => {
+      const progress = prefersReducedMotion
+        ? 0.28
+        : ((now - rotationStart) % rotationMs) / rotationMs;
+      const offset = progress * -50;
+      globeMap.style.transform = `translateX(${offset}%)`;
+
+      const centerLon = normalizeLon(progress * 180 - 90);
+      let activeId = destinations[0]?.id;
+      let bestDistance = Infinity;
+
+      destinations.forEach((dest) => {
+        const distance = lonDistance(centerLon, dest.lon);
+        if (distance < bestDistance) {
+          bestDistance = distance;
+          activeId = dest.id;
+        }
+      });
+
+      globeLabels.forEach((label) => {
+        label.classList.toggle("is-active", label.dataset.id === activeId);
+      });
+
+      globeSpokes.forEach((spoke) => {
+        spoke.classList.toggle("is-active", spoke.dataset.id === activeId);
+      });
+
+      globePins.forEach((pin) => {
+        const pinLon = parseFloat(
+          destinations.find((dest) => dest.id === pin.dataset.id)?.lon ?? "0"
+        );
+        const distance = lonDistance(centerLon, pinLon);
+        const visibility = Math.max(0, 1 - distance / 78);
+        pin.style.opacity = visibility.toFixed(2);
+        pin.style.transform = `translate(-50%, -50%) scale(${0.65 + visibility * 0.55})`;
+      });
+
+      requestAnimationFrame(animateGlobe);
+    };
+
+    requestAnimationFrame(animateGlobe);
   }
 
   const mbbsCards = document.querySelectorAll(".mbbs-card");

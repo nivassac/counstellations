@@ -41,43 +41,27 @@
           <span></span><span></span><span></span><span></span><span></span><span></span>
         </div>
         <p class="hero-welcome__eyebrow">Trusted by 3000+ students worldwide for success.</p>
-        <div class="hero-welcome__stage">
-          <div class="hero-welcome__panel">
-            <div class="hero-welcome__headlines" aria-live="polite">
-              <h1 class="hero-welcome__title">
-                <span class="hero-welcome__title-line is-active">
-                  <em>Give wings to your overseas dreams</em>
-                  <strong>we'll help you fly</strong>
-                </span>
-                <span class="hero-welcome__title-line">
-                  <em>Global opportunities await,</em>
-                  <strong>join now</strong>
-                </span>
-                <span class="hero-welcome__title-line">
-                  <em>Welcome to Fly2Success Abroad</em>
-                  <strong>your journey starts here</strong>
-                </span>
-              </h1>
-            </div>
-            <div class="hero-welcome__visual">
-              <div class="hero-welcome__glow" aria-hidden="true"></div>
-              <img
-                src="images/welcome-mascot.png"
-                alt="Fly2Success Abroad graduate mascot giving a thumbs up"
-                class="hero-welcome__mascot"
-                width="320"
-                height="480"
-              />
-              <div class="hero-welcome__mini-globe globe-real globe-real--sm" aria-hidden="true">
-                <div class="globe-real__atmosphere"></div>
-                <div class="globe-real__sphere">
-                  <div class="globe-real__map"></div>
-                </div>
-                <div class="globe-real__shine"></div>
-              </div>
-              <img src="images/logo.png" alt="" class="hero-welcome__logo-badge" width="56" height="56" />
-            </div>
+        <div class="hero-welcome__hero-text" aria-live="polite">
+          <div class="hero-welcome__text-track">
+            <h1 class="hero-welcome__slide is-active">
+              <span class="hero-welcome__line hero-welcome__line--soft">Give wings to your overseas dreams</span>
+              <span class="hero-welcome__line hero-welcome__line--bold">we'll help you fly</span>
+            </h1>
+            <h1 class="hero-welcome__slide">
+              <span class="hero-welcome__line hero-welcome__line--soft">Global opportunities await,</span>
+              <span class="hero-welcome__line hero-welcome__line--bold"><em>join now</em></span>
+            </h1>
           </div>
+        </div>
+        <div class="hero-welcome__hero-image">
+          <div class="hero-welcome__image-shine" aria-hidden="true"></div>
+          <img
+            src="images/welcome-banner.png"
+            alt="Welcome to Fly2Success Abroad — your success journey starts here"
+            class="hero-welcome__banner"
+            width="960"
+            height="540"
+          />
         </div>
         <div class="hero-welcome__badges-row">
           <div class="hero-welcome__badge hero-welcome__badge--google">
@@ -91,39 +75,51 @@
           </div>
         </div>
         <a href="#contact" class="btn btn--primary btn--lg hero-welcome__cta">Get Expert Guidance</a>
-        <p class="hero-welcome__footer">Connecting Aspirations to Global Success</p>
+        <p class="hero-welcome__footer">Connecting Aspirations to Global Education Destinations</p>
       </div>
     </section>
 
     <section class="hero-showcase section-tone--globe">
       <div class="container reveal">
         <p class="hero-showcase__tagline">Connecting Aspirations to Global Education Destinations</p>
-        <div class="hero__globe-showcase">
-          <div class="globe-real globe-real--lg" aria-hidden="true">
-            <div class="globe-real__orbit"></div>
+        <div class="globe-hub" id="globeHub">
+          <svg class="globe-hub__lines" viewBox="0 0 400 400" aria-hidden="true">
+            <circle cx="200" cy="200" r="118" class="globe-hub__ring" />
+            <line x1="200" y1="200" x2="56" y2="72" class="globe-hub__spoke" data-id="uk" />
+            <line x1="200" y1="200" x2="200" y2="24" class="globe-hub__spoke" data-id="europe" />
+            <line x1="200" y1="200" x2="344" y2="72" class="globe-hub__spoke" data-id="dubai" />
+            <line x1="200" y1="200" x2="376" y2="200" class="globe-hub__spoke" data-id="singapore" />
+            <line x1="200" y1="200" x2="328" y2="336" class="globe-hub__spoke" data-id="australia" />
+            <line x1="200" y1="200" x2="200" y2="376" class="globe-hub__spoke" data-id="nz" />
+            <line x1="200" y1="200" x2="72" y2="336" class="globe-hub__spoke" data-id="mauritius" />
+            <line x1="200" y1="200" x2="24" y2="200" class="globe-hub__spoke" data-id="usa" />
+          </svg>
+          <div class="globe-real globe-real--lg" id="globeMain">
             <div class="globe-real__atmosphere"></div>
             <div class="globe-real__sphere">
-              <div class="globe-real__map"></div>
+              <div class="globe-real__map" id="globeMap">
+                <span class="globe-pin" data-id="usa" style="--pin-x: 22.8%; --pin-y: 28.3%;"></span>
+                <span class="globe-pin" data-id="uk" style="--pin-x: 49.4%; --pin-y: 20%;"></span>
+                <span class="globe-pin" data-id="europe" style="--pin-x: 52.8%; --pin-y: 22.2%;"></span>
+                <span class="globe-pin" data-id="dubai" style="--pin-x: 65.4%; --pin-y: 36%;"></span>
+                <span class="globe-pin" data-id="mauritius" style="--pin-x: 66%; --pin-y: 61.3%;"></span>
+                <span class="globe-pin" data-id="singapore" style="--pin-x: 78.8%; --pin-y: 49.3%;"></span>
+                <span class="globe-pin" data-id="australia" style="--pin-x: 87.5%; --pin-y: 63.9%;"></span>
+                <span class="globe-pin" data-id="nz" style="--pin-x: 98.3%; --pin-y: 72.8%;"></span>
+              </div>
             </div>
             <div class="globe-real__shine"></div>
-            <span class="globe-real__plane">✈</span>
           </div>
-          <article class="hero__country-card hero__country-card--uk">
-            <strong>UK 🇬🇧</strong>
-            <span>120+ Universities</span>
-          </article>
-          <article class="hero__country-card hero__country-card--canada">
-            <strong>Canada 🇨🇦</strong>
-            <span>100+ Universities</span>
-          </article>
-          <article class="hero__country-card hero__country-card--australia">
-            <strong>Australia 🇦🇺</strong>
-            <span>70+ Universities</span>
-          </article>
-          <article class="hero__country-card hero__country-card--usa">
-            <strong>USA 🇺🇸</strong>
-            <span>150+ Universities</span>
-          </article>
+          <div class="globe-hub__labels">
+            <a href="#contact" class="globe-hub__label" data-id="uk" data-lon="-2"><span>🇬🇧</span><strong>UK</strong></a>
+            <a href="#contact" class="globe-hub__label" data-id="europe" data-lon="10"><span>🇪🇺</span><strong>Europe</strong></a>
+            <a href="#contact" class="globe-hub__label" data-id="dubai" data-lon="55.3"><span>🇦🇪</span><strong>Dubai</strong></a>
+            <a href="#contact" class="globe-hub__label" data-id="singapore" data-lon="103.8"><span>🇸🇬</span><strong>Singapore</strong></a>
+            <a href="#contact" class="globe-hub__label" data-id="australia" data-lon="135"><span>🇦🇺</span><strong>Australia</strong></a>
+            <a href="#contact" class="globe-hub__label" data-id="nz" data-lon="174"><span>🇳🇿</span><strong>New Zealand</strong></a>
+            <a href="#contact" class="globe-hub__label" data-id="mauritius" data-lon="57.5"><span>🇲🇺</span><strong>Mauritius</strong></a>
+            <a href="#contact" class="globe-hub__label" data-id="usa" data-lon="-98"><span>🇺🇸</span><strong>USA</strong></a>
+          </div>
         </div>
       </div>
     </section>
