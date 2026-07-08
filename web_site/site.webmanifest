@@ -1,0 +1,23 @@
+{
+  "name": "Fly2Success Abroad",
+  "short_name": "Fly2Success",
+  "description": "Trusted overseas education consultancy for study abroad, MBBS, visas, and scholarships.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f9fc",
+  "theme_color": "#114f98",
+  "icons": [
+    {
+      "src": "/images/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

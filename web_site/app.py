@@ -39,6 +39,11 @@ def index():
     return send_from_directory(BASE_DIR, "index.html")
 
 
+@app.route("/favicon.ico")
+def favicon():
+    return send_from_directory(BASE_DIR, "favicon.ico")
+
+
 @app.route("/admin")
 def admin():
     return send_from_directory(BASE_DIR, "admin.html")
