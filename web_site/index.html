@@ -13,12 +13,13 @@
 <body>
   <header class="header" id="header">
     <div class="container header__inner">
-      <a href="#" class="logo">
-        <span class="logo__icon">✈</span>
+      <a href="#counselling" class="logo">
+        <img src="images/logo.png" alt="" class="logo__image" width="44" height="44" />
         <span class="logo__text">Fly<span class="logo__accent">2</span>Success <span class="logo__suffix">Abroad</span></span>
       </a>
       <nav class="nav" id="nav">
         <a href="#destinations">Destinations</a>
+        <a href="#mbbs">MBBS</a>
         <a href="#services">Services</a>
         <a href="#sessions">Live Sessions</a>
         <a href="#testimonials">Reviews</a>
@@ -34,7 +35,10 @@
 
   <main>
     <section class="hero-welcome" id="counselling">
-      <div class="container hero-welcome__inner">
+      <div class="container hero-welcome__inner reveal">
+        <div class="hero-welcome__logo-float" aria-hidden="true">
+          <img src="images/logo.png" alt="" class="hero-welcome__logo-orbit" width="72" height="72" />
+        </div>
         <div class="hero-welcome__confetti" aria-hidden="true">
           <span></span><span></span><span></span><span></span><span></span><span></span>
           <span></span><span></span><span></span><span></span><span></span><span></span>
@@ -65,8 +69,8 @@
       </div>
     </section>
 
-    <section class="hero-showcase">
-      <div class="container">
+    <section class="hero-showcase section-tone--globe">
+      <div class="container reveal">
         <div class="hero__globe-showcase">
           <div class="hero__globe" aria-hidden="true">
             <img src="images/hero-globe-reference.png" alt="" class="hero__globe-image" />
@@ -91,8 +95,8 @@
       </div>
     </section>
 
-    <section class="sessions" id="sessions">
-      <div class="container">
+    <section class="sessions section-tone--sessions" id="sessions">
+      <div class="container reveal">
         <h2 class="section-title">Join Our Upcoming Live Sessions</h2>
         <div class="sessions__grid">
           <article class="session-card">
@@ -117,8 +121,8 @@
       </div>
     </section>
 
-    <section class="services" id="services">
-      <div class="container">
+    <section class="services section-tone--services" id="services">
+      <div class="container reveal">
         <p class="section-eyebrow">Everything you need to study abroad</p>
         <h2 class="section-title">Student services and value added support</h2>
         <div class="services__group">
@@ -174,8 +178,56 @@
       </div>
     </section>
 
-    <section class="process" id="process">
-      <div class="container">
+    <section class="mbbs section-tone--medical" id="mbbs">
+      <div class="container mbbs__layout reveal">
+        <div class="mbbs__visual">
+          <div class="mbbs-doctor" aria-hidden="true">
+            <div class="mbbs-doctor__ring mbbs-doctor__ring--1"></div>
+            <div class="mbbs-doctor__ring mbbs-doctor__ring--2"></div>
+            <svg class="mbbs-doctor__svg" viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="100" cy="228" rx="58" ry="10" fill="rgba(15,118,110,0.18)"/>
+              <path class="mbbs-doctor__coat" d="M55 95c0-18 20-32 45-32s45 14 45 32v95H55V95z" fill="#fff" stroke="#0f766e" stroke-width="2"/>
+              <circle cx="100" cy="62" r="28" fill="#fcd9b6" stroke="#0f766e" stroke-width="2"/>
+              <path d="M72 62c0-16 12-28 28-28s28 12 28 28" fill="#1e293b"/>
+              <rect x="88" y="118" width="24" height="8" rx="4" fill="#dc2626"/>
+              <path class="mbbs-doctor__stethoscope" d="M78 108c-8 18-6 38 8 52 10 10 24 10 34 0 14-14 16-34 8-52" stroke="#0f766e" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="128" cy="158" r="8" fill="#14b8a6" stroke="#0f766e" stroke-width="2"/>
+              <path class="mbbs-doctor__ecg" d="M30 190h20l8-16 10 32 12-48 10 24 12-16h38" stroke="#14b8a6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <img src="images/logo.png" alt="" class="mbbs-doctor__logo" width="48" height="48" />
+          </div>
+        </div>
+        <div class="mbbs__content">
+          <p class="section-eyebrow section-eyebrow--light">Medical admissions abroad</p>
+          <h2 class="mbbs__title">Study MBBS with Fly2Success Abroad</h2>
+          <p class="mbbs__intro">Dedicated MBBS counselling for affordable, WHO-recognized medical universities with complete admission, visa, and pre-departure support.</p>
+          <div class="mbbs__grid">
+            <a href="#contact" class="mbbs-card reveal reveal--delay-1">
+              <span class="mbbs-card__flag">🇬🇪</span>
+              <h3>MBBS in Georgia</h3>
+              <p>English-medium programs, modern campuses, and budget-friendly tuition for Indian students.</p>
+              <span class="mbbs-card__cta">Apply now →</span>
+            </a>
+            <a href="#contact" class="mbbs-card mbbs-card--featured reveal reveal--delay-2">
+              <span class="mbbs-card__flag">🇦🇿</span>
+              <h3>MBBS in Azerbaijan</h3>
+              <p>Quality medical education with European standards and strong clinical exposure.</p>
+              <span class="mbbs-card__cta">Apply now →</span>
+            </a>
+            <a href="#contact" class="mbbs-card reveal reveal--delay-3">
+              <span class="mbbs-card__flag">🇰🇿</span>
+              <h3>MBBS in Kazakhstan</h3>
+              <p>Recognized universities, safe campuses, and structured pathways to global medical careers.</p>
+              <span class="mbbs-card__cta">Apply now →</span>
+            </a>
+          </div>
+          <a href="#contact" class="btn btn--primary btn--lg mbbs__btn">Book Free MBBS Counselling</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="process section-tone--process" id="process">
+      <div class="container reveal">
         <p class="section-eyebrow">How it works</p>
         <h2 class="section-title">Simple steps to your dream university</h2>
         <div class="process__grid">
@@ -203,8 +255,8 @@
       </div>
     </section>
 
-    <section class="stats">
-      <div class="container stats__grid">
+    <section class="stats section-tone--stats">
+      <div class="container stats__grid reveal">
         <div class="stat-item">
           <span class="stat-item__number" data-target="15">0</span>
           <span class="stat-item__suffix">K+</span>
@@ -227,8 +279,8 @@
       </div>
     </section>
 
-    <section class="destinations" id="destinations">
-      <div class="container">
+    <section class="destinations section-tone--destinations" id="destinations">
+      <div class="container reveal">
         <h2 class="section-title">Explore top destinations</h2>
         <div class="destinations__grid">
           <a href="#contact" class="dest-card">
@@ -365,8 +417,8 @@
       </div>
     </section>
 
-    <section class="testimonials" id="testimonials">
-      <div class="container">
+    <section class="testimonials section-tone--testimonials" id="testimonials">
+      <div class="container reveal">
         <h2 class="section-title">What Our Students Say</h2>
         <div class="testimonials__slider">
           <blockquote class="testimonial-card active">
@@ -390,8 +442,8 @@
       </div>
     </section>
 
-    <section class="counsellors">
-      <div class="container">
+    <section class="counsellors section-tone--counsellors">
+      <div class="container reveal">
         <h2 class="section-title">Meet our eminent counsellors</h2>
         <div class="counsellors__grid">
           <article class="counsellor-card">
@@ -418,8 +470,8 @@
       </div>
     </section>
 
-    <section class="faq" id="faq">
-      <div class="container faq__layout">
+    <section class="faq section-tone--faq" id="faq">
+      <div class="container faq__layout reveal">
         <div class="faq__intro">
           <h2 class="section-title">Frequently Asked Questions</h2>
           <p>Real answers from our education experts.</p>
@@ -439,14 +491,18 @@
           </details>
           <details class="faq-item">
             <summary>What services does Fly2Success Abroad provide?</summary>
-            <p>Course finder, university applications, SOP/LOR review, visa documentation, scholarship assistance, and coaching for IELTS, GRE, GMAT, PTE, TOEFL, and more.</p>
+            <p>Course finder, university applications, SOP/LOR review, visa documentation, scholarship assistance, MBBS admissions, and coaching for IELTS, GRE, GMAT, PTE, TOEFL, and more.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Do you provide MBBS admissions abroad?</summary>
+            <p>Yes. We specialize in MBBS admissions in Georgia, Azerbaijan, and Kazakhstan with end-to-end counselling, documentation, and visa guidance for medical aspirants.</p>
           </details>
         </div>
       </div>
     </section>
 
-    <section class="centres">
-      <div class="container">
+    <section class="centres section-tone--centres">
+      <div class="container reveal">
         <h2 class="section-title">Find a Fly2Success Abroad centre near you</h2>
         <div class="centres__grid">
           <a href="#contact" class="centre-card">Namakkal</a>
@@ -456,8 +512,8 @@
       </div>
     </section>
 
-    <section class="contact" id="contact">
-      <div class="container contact__grid">
+    <section class="contact section-tone--contact" id="contact">
+      <div class="container contact__grid reveal">
         <div class="contact__info">
           <h2 class="section-title">Start your journey today</h2>
           <p>Book a free counselling session with our experts for admissions, scholarships, and visa support.</p>
@@ -474,13 +530,20 @@
           <input type="tel" name="phone" placeholder="Phone number" required />
           <select name="destination" required>
             <option value="">Preferred destination</option>
-            <option>UK</option>
-            <option>USA</option>
-            <option>Canada</option>
-            <option>Australia</option>
-            <option>Ireland</option>
-            <option>Singapore</option>
-            <option>Other</option>
+            <optgroup label="MBBS Programs">
+              <option>MBBS in Georgia</option>
+              <option>MBBS in Azerbaijan</option>
+              <option>MBBS in Kazakhstan</option>
+            </optgroup>
+            <optgroup label="Study Abroad">
+              <option>UK</option>
+              <option>USA</option>
+              <option>Canada</option>
+              <option>Australia</option>
+              <option>Ireland</option>
+              <option>Singapore</option>
+              <option>Other</option>
+            </optgroup>
           </select>
           <button type="submit" class="btn btn--primary btn--lg">Book Free Counselling</button>
           <p class="form-message" id="formMessage" hidden>Thank you! We'll contact you within 24 hours.</p>
@@ -492,13 +555,19 @@
   <footer class="footer">
     <div class="container footer__grid">
       <div class="footer__brand">
-        <a href="#" class="logo logo--footer">
-          <span class="logo__icon">✈</span>
+        <a href="#counselling" class="logo logo--footer">
+          <img src="images/logo.png" alt="" class="logo__image" width="40" height="40" />
           <span class="logo__text">Fly<span class="logo__accent">2</span>Success <span class="logo__suffix">Abroad</span></span>
         </a>
         <p>Your trusted partner for overseas education.</p>
         <a href="mailto:fly2successabroad@gmail.com" class="footer__social">fly2successabroad@gmail.com</a>
         <a href="https://www.instagram.com/fly2successabroad/" class="footer__social" target="_blank" rel="noopener noreferrer">Follow us on Instagram</a>
+      </div>
+      <div class="footer__links">
+        <h4>MBBS Destinations</h4>
+        <a href="#mbbs">Georgia</a>
+        <a href="#mbbs">Azerbaijan</a>
+        <a href="#mbbs">Kazakhstan</a>
       </div>
       <div class="footer__links">
         <h4>Study Destinations</h4>

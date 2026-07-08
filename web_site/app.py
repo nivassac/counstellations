@@ -44,6 +44,11 @@ def admin():
     return send_from_directory(BASE_DIR, "admin.html")
 
 
+@app.route("/health")
+def health():
+    return jsonify({"status": "ok"}), 200
+
+
 @app.route("/api/contact", methods=["POST"])
 def contact():
     data = request.get_json(silent=True) or {}

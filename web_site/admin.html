@@ -71,6 +71,15 @@
     color: #b91c1c;
     font-size: 0.9rem;
   }
+  .admin__hint {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+  .admin__hint a {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
   .admin__empty {
     text-align: center;
     color: var(--color-text-muted);
@@ -91,6 +100,11 @@
       <input type="password" id="passwordInput" placeholder="Admin password" />
       <button type="button" id="loginBtn">View leads</button>
       <p class="admin__error" id="loginError" hidden>Invalid password.</p>
+      <p class="admin__error" id="networkError" hidden></p>
+      <p class="admin__hint" id="fallbackHint" hidden>
+        If <strong>fly2successabroad.com</strong> does not load, use the direct Render URL:
+        <a href="https://fly2successabroad.onrender.com/admin">fly2successabroad.onrender.com/admin</a>
+      </p>
       <a href="/">← Back to website</a>
     </div>
 
@@ -128,6 +142,8 @@
     const passwordInput = document.getElementById("passwordInput");
     const loginBtn = document.getElementById("loginBtn");
     const loginError = document.getElementById("loginError");
+    const networkError = document.getElementById("networkError");
+    const fallbackHint = document.getElementById("fallbackHint");
     const leadsBody = document.getElementById("leadsBody");
     const leadCount = document.getElementById("leadCount");
     const emptyState = document.getElementById("emptyState");
@@ -142,10 +158,28 @@
       }
     };
 
+    const showNetworkError = (message) => {
+      loginView.hidden = false;
+      dashboardView.hidden = true;
+      loginError.hidden = true;
+      networkError.hidden = false;
+      networkError.textContent = message;
+      fallbackHint.hidden = false;
+    };
+
     const loadLeads = async () => {
-      const res = await fetch("/api/leads", {
-        headers: { "X-Admin-Password": password },
-      });
+      networkError.hidden = true;
+      fallbackHint.hidden = true;
+
+      let res;
+      try {
+        res = await fetch("/api/leads", {
+          headers: { "X-Admin-Password": password },
+        });
+      } catch {
+        showNetworkError("Could not reach the server. The site may be waking up or DNS may be slow.");
+        return;
+      }
 
       if (res.status === 401) {
         sessionStorage.removeItem("adminPassword");
@@ -153,6 +187,12 @@
         loginView.hidden = false;
         dashboardView.hidden = true;
         loginError.hidden = false;
+        networkError.hidden = true;
+        return;
+      }
+
+      if (!res.ok) {
+        showNetworkError("Server error while loading leads. Try again in a minute.");
         return;
       }
 

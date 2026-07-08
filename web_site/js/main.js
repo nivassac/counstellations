@@ -86,6 +86,38 @@
     }, 5000);
   }
 
+  const revealElements = document.querySelectorAll(".reveal");
+  if (revealElements.length) {
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("reveal--visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+    );
+    revealElements.forEach((el) => revealObserver.observe(el));
+  }
+
+  const mbbsCards = document.querySelectorAll(".mbbs-card");
+  mbbsCards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const heading = card.querySelector("h3")?.textContent?.trim();
+      const destinationSelect = document.querySelector('#contactForm select[name="destination"]');
+      if (heading && destinationSelect) {
+        for (const option of destinationSelect.options) {
+          if (option.textContent.trim() === heading) {
+            destinationSelect.value = option.value;
+            break;
+          }
+        }
+      }
+    });
+  });
+
   const form = document.getElementById("contactForm");
   const formMessage = document.getElementById("formMessage");
   const submitBtn = form?.querySelector('button[type="submit"]');

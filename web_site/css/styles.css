@@ -148,6 +148,19 @@ img {
   color: var(--color-primary);
 }
 
+.logo__image {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(17, 79, 152, 0.2));
+  animation: logoFloat 3.5s ease-in-out infinite;
+}
+
+.logo--footer .logo__image {
+  width: 40px;
+  height: 40px;
+}
+
 .logo__icon {
   font-size: 1.5rem;
 }
@@ -1005,7 +1018,7 @@ section {
 
 .footer__grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  grid-template-columns: 1.5fr repeat(4, 1fr);
   gap: 2rem;
   padding-bottom: 2rem;
 }
@@ -1597,5 +1610,353 @@ section {
 
   .hero-welcome__footer {
     font-size: 0.78rem;
+  }
+
+  .mbbs__layout {
+    gap: 2rem;
+  }
+
+  .mbbs__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mbbs-doctor__svg {
+    width: min(220px, 70vw);
+  }
+}
+
+/* Scroll reveal animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal--delay-1 { transition-delay: 0.1s; }
+.reveal--delay-2 { transition-delay: 0.2s; }
+.reveal--delay-3 { transition-delay: 0.3s; }
+
+@keyframes logoFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-4px) rotate(-2deg);
+  }
+}
+
+.hero-welcome__logo-float {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hero-welcome__logo-orbit {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 16px rgba(17, 79, 152, 0.25));
+  animation: logoOrbit 5s ease-in-out infinite;
+}
+
+@keyframes logoOrbit {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translateY(-8px) rotate(6deg) scale(1.05);
+  }
+  75% {
+    transform: translateY(4px) rotate(-4deg) scale(0.98);
+  }
+}
+
+/* Distinct section backgrounds */
+.section-tone--globe {
+  background: linear-gradient(180deg, #eef5fb 0%, #f8fbff 50%, #e8f2fc 100%);
+}
+
+.section-tone--sessions {
+  background: linear-gradient(135deg, #f3ecff 0%, #fdf4ff 50%, #eef6ff 100%);
+}
+
+.section-tone--services {
+  background:
+    radial-gradient(circle at 10% 20%, rgba(99, 197, 251, 0.12), transparent 40%),
+    #ffffff;
+}
+
+.section-tone--medical {
+  background:
+    radial-gradient(circle at 85% 15%, rgba(20, 184, 166, 0.18), transparent 42%),
+    radial-gradient(circle at 10% 80%, rgba(15, 118, 110, 0.12), transparent 38%),
+    linear-gradient(135deg, #ecfdf5 0%, #f0fdfa 45%, #e6fffa 100%);
+}
+
+.section-tone--process {
+  background: linear-gradient(180deg, #edf4fc 0%, #f8fbff 100%);
+}
+
+.section-tone--stats {
+  background: linear-gradient(135deg, #0f4a8e, #0a2f58);
+}
+
+.section-tone--destinations {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.92)),
+    repeating-linear-gradient(45deg, rgba(17, 79, 152, 0.03) 0 2px, transparent 2px 14px);
+}
+
+.section-tone--testimonials {
+  background: linear-gradient(180deg, #fff8f0 0%, #fffdf8 100%);
+}
+
+.section-tone--counsellors {
+  background: linear-gradient(135deg, #eef6ff 0%, #f5f0ff 100%);
+}
+
+.section-tone--faq {
+  background: #f5f7fb;
+}
+
+.section-tone--centres {
+  background: linear-gradient(180deg, #ffffff 0%, #eef5fb 100%);
+}
+
+.section-tone--contact {
+  background: linear-gradient(135deg, rgba(11, 53, 100, 0.04), rgba(99, 197, 251, 0.08));
+}
+
+.section-eyebrow--light {
+  color: #0f766e;
+}
+
+/* MBBS section */
+.mbbs__layout {
+  display: grid;
+  grid-template-columns: minmax(240px, 340px) 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.mbbs__visual {
+  display: flex;
+  justify-content: center;
+}
+
+.mbbs-doctor {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.mbbs-doctor__ring {
+  position: absolute;
+  border: 2px solid rgba(20, 184, 166, 0.35);
+  border-radius: 50%;
+  animation: mbbsPulseRing 2.8s ease-out infinite;
+}
+
+.mbbs-doctor__ring--1 {
+  width: 240px;
+  height: 240px;
+}
+
+.mbbs-doctor__ring--2 {
+  width: 280px;
+  height: 280px;
+  animation-delay: 1.4s;
+}
+
+.mbbs-doctor__svg {
+  position: relative;
+  z-index: 1;
+  width: min(260px, 80vw);
+  height: auto;
+  animation: mbbsDoctorFloat 3.2s ease-in-out infinite;
+  filter: drop-shadow(0 16px 28px rgba(15, 118, 110, 0.2));
+}
+
+.mbbs-doctor__stethoscope {
+  transform-origin: 100px 108px;
+  animation: mbbsStethoscope 2.4s ease-in-out infinite;
+}
+
+.mbbs-doctor__ecg {
+  stroke-dasharray: 80;
+  animation: mbbsEcg 1.6s linear infinite;
+}
+
+.mbbs-doctor__logo {
+  position: absolute;
+  top: 8%;
+  right: 2%;
+  z-index: 2;
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 50%;
+  padding: 0.25rem;
+  box-shadow: 0 8px 20px rgba(15, 118, 110, 0.22);
+  animation: logoOrbit 4s ease-in-out infinite;
+}
+
+.mbbs__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  color: #0f766e;
+  margin-bottom: 0.75rem;
+}
+
+.mbbs__intro {
+  max-width: 620px;
+  color: #334155;
+  margin-bottom: 1.5rem;
+}
+
+.mbbs__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.mbbs-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(15, 118, 110, 0.18);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+
+.mbbs-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(15, 118, 110, 0.16);
+  border-color: #14b8a6;
+}
+
+.mbbs-card--featured {
+  background: linear-gradient(160deg, #0f766e, #115e59);
+  border-color: transparent;
+  color: #fff;
+}
+
+.mbbs-card--featured p,
+.mbbs-card--featured .mbbs-card__cta {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.mbbs-card__flag {
+  font-size: 2rem;
+}
+
+.mbbs-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+}
+
+.mbbs-card p {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  flex: 1;
+}
+
+.mbbs-card__cta {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #0f766e;
+}
+
+.mbbs__btn {
+  box-shadow: 0 8px 24px rgba(15, 118, 110, 0.25);
+}
+
+@keyframes mbbsDoctorFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes mbbsStethoscope {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+}
+
+@keyframes mbbsEcg {
+  0% {
+    stroke-dashoffset: 80;
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.4;
+  }
+}
+
+@keyframes mbbsPulseRing {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.15);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .mbbs__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .mbbs__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .logo__image,
+  .hero-welcome__logo-orbit,
+  .mbbs-doctor__svg,
+  .mbbs-doctor__stethoscope,
+  .mbbs-doctor__ecg,
+  .mbbs-doctor__ring,
+  .mbbs-doctor__logo {
+    animation: none;
   }
 }
