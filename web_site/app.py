@@ -90,6 +90,20 @@ def leads():
     return jsonify([dict(row) for row in rows])
 
 
+@app.route("/api/leads/<int:lead_id>", methods=["DELETE"])
+def delete_lead(lead_id):
+    password = request.headers.get("X-Admin-Password") or request.args.get("password")
+    if password != ADMIN_PASSWORD:
+        return jsonify({"error": "Unauthorized"}), 401
+
+    with get_db() as conn:
+        result = conn.execute("DELETE FROM leads WHERE id = ?", (lead_id,))
+        if result.rowcount == 0:
+            return jsonify({"error": "Lead not found."}), 404
+
+    return jsonify({"message": "Lead deleted."}), 200
+
+
 with app.app_context():
     init_db()
 
