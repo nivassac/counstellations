@@ -102,6 +102,16 @@
     revealElements.forEach((el) => revealObserver.observe(el));
   }
 
+  const headlineLines = document.querySelectorAll(".hero-welcome__title-line");
+  if (headlineLines.length > 1) {
+    let headlineIndex = 0;
+    setInterval(() => {
+      headlineLines[headlineIndex].classList.remove("is-active");
+      headlineIndex = (headlineIndex + 1) % headlineLines.length;
+      headlineLines[headlineIndex].classList.add("is-active");
+    }, 4200);
+  }
+
   const mbbsCards = document.querySelectorAll(".mbbs-card");
   mbbsCards.forEach((card) => {
     card.addEventListener("click", () => {
