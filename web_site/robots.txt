@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fly2successabroad.com/sitemap.xml
