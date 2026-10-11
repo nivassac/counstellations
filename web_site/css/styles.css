@@ -1052,6 +1052,53 @@ section {
   gap: 1rem;
 }
 
+.centres__grid--offices {
+  align-items: stretch;
+}
+
+.centre-office {
+  flex: 1 1 280px;
+  max-width: 420px;
+  padding: 1.5rem 1.75rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  text-align: left;
+}
+
+.centre-office__city {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--color-primary);
+  margin-bottom: 0.35rem;
+}
+
+.centre-office__head {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.75rem;
+}
+
+.centre-office__address {
+  font-style: normal;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--color-text-muted);
+  margin-bottom: 0.85rem;
+}
+
+.centre-office__phone {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.centre-office__phone:hover {
+  color: var(--color-primary-dark);
+}
+
 .centre-card {
   padding: 1rem 2rem;
   background: var(--color-bg);
@@ -1192,6 +1239,29 @@ section {
   border-top: 1px solid rgba(255, 255, 255, 0.15);
   margin-top: 0.25rem;
   padding: 1.25rem 0 2.5rem;
+}
+
+.footer__offices {
+  margin-bottom: 1.25rem;
+}
+
+.footer__offices h4 {
+  font-family: var(--font-display);
+  color: #fff;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.footer__offices p {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  opacity: 0.88;
+  max-width: 520px;
+}
+
+.footer__offices a {
+  color: #fcd34d;
+  font-weight: 600;
 }
 
 .footer__contact-links {
