@@ -1257,6 +1257,7 @@ section {
   line-height: 1.55;
   opacity: 0.88;
   max-width: 520px;
+  margin-bottom: 0.9rem;
 }
 
 .footer__offices a {
